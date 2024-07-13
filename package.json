@@ -11,9 +11,9 @@
   "author": "William Mallett",
   "license": "ISC",
   "dependencies": {
-    "colors": "^1.4.0",
-    "dotenv": "^16.4.5",
-    "openai": "^4.52.7",
-    "readline-sync": "^1.4.10"
+    "colors": "1.4.0",
+    "dotenv": "16.4.5",
+    "openai": "4.52.7",
+    "readline-sync": "1.4.10"
   }
 }
