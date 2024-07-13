@@ -21,12 +21,20 @@ async function main() {
     print('You can start chatting with the bot.', 'intro');
     print('Type "exit" to exit.', 'intro');
 
+    const chatHistory = [];
+
     while (true) {
         const userInput = readlineSync.question(colors.yellow('You: '));
-
+ 
         try {
+
+            // Build messages to send entire chat history to openAI api
+            const messages = chatHistory.map(([role, content]) => ({ role, content }));
+            
+            messages.push({ role: 'user', content: userInput });
+
             const completion = await openai.chat.completions.create({
-                messages: [{ role: 'user', content: userInput }],
+                messages,
                 model: 'gpt-3.5-turbo-1106',
             });
 
@@ -38,6 +46,10 @@ async function main() {
             }
 
             print(botResponse, 'bot');
+
+            // Update history with user input and bot response
+            chatHistory.push(['user', userInput]);
+            chatHistory.push(['assistant', botResponse]);
         } catch (error) {
             print(error);
         }
